@@ -1,11 +1,11 @@
 import os
 import json
 from KTCloud import KTCloudD, KTCloudG
-from Driver import RestfulAPI
+from Drivers import RestfulAPI
 from InfraServices import ServerD, ServerG
 
 cwd = os.getcwd()
-with open(cwd+'\\requests_json\\credentials.json',encoding='UTF-8') as credentials:
+with open(cwd+'/requests_json/credentials.json',encoding='UTF-8') as credentials:
     credinfo = json.load(credentials)
 
 ktc_d1 = KTCloudD(userid=credinfo['userid'],userpw=credinfo['userpw'],domain=credinfo['domain'],zone="d1/")

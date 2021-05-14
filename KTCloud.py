@@ -16,7 +16,7 @@ class KTCloudD(Cloud):
     def getAuthToken(self):
         endpoint = "identity/auth/tokens"
         cwd = os.getcwd()
-        with open(cwd+'\\requests_json\\tokens.json',encoding='UTF-8') as json_file:
+        with open(cwd+'/requests_json/tokens.json',encoding='UTF-8') as json_file:
             body = json.load(json_file)
         body['auth']['identity']['password']['user']['name'] = self.credentials[0]
         body['auth']['identity']['password']['user']['password'] = self.credentials[1]
