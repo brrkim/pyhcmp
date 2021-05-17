@@ -1,10 +1,10 @@
 class Cloud():
-    def __init__(self,credinfo,cloudname):
-        self.apikey = credinfo['apikey']
-        self.secret = credinfo['secret']
-        self.userid = credinfo['userid']
-        self.userpw = credinfo['userpw']
-        self.domain = credinfo['domain']
+    def __init__(self,apikey=None,secret=None,userid=None,userpw=None,domain=None,cloudname=None):
+        self.apikey = apikey
+        self.secret = secret
+        self.userid = userid
+        self.userpw = userpw
+        self.domain = domain
         self.cloudname = cloudname
 
 class Network():

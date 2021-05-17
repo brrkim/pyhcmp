@@ -11,15 +11,22 @@ zones = {'D':['d1/'],'G':['v1/','v2/']}
 
 class KTCloud(Cloud):
     def __init__(self,credinfo,cloudname='KT Cloud'):
-        super().__init__(credinfo,cloudname)
+        super().__init__(
+            apikey = credinfo['apikey'],
+            secret = credinfo['secret'],
+            userid = credinfo['userid'],
+            userpw = credinfo['userpw'],
+            domain = credinfo['domain'],
+            cloudname = cloudname
+        )
 
-class CloudZone(Zone):
+class KTCZone(Zone):
     def __init__(self,ktcloud,zone,cloudtype):
         super().__init__(cloud=ktcloud,zone=zone,cloudtype='public')
         if zone in zones['D']:
             self.headers['X-Auth-Token'] = getAuthToken(self.cloud,self.zone,self.headers)
 
-class Server(Services,Provisioning):
+class KTCServer(Services,Provisioning):
     def __init__(self,ktcloudzone,servicename,endpoint):
         super().__init__(headers=ktcloudzone.headers,servicename=servicename,domain=ktcloudzone.cloud.domain,zone=ktcloudzone.zone,endpoint=endpoint,apikey=ktcloudzone.cloud.apikey,secret=ktcloudzone.cloud.secret)
 
@@ -44,4 +51,3 @@ class Server(Services,Provisioning):
 
     def delete(self):
         return super().delete()
-        
