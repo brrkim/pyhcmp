@@ -14,7 +14,7 @@ userid = credinfo['userid']
 userpw = credinfo['userpw']
 
 with open('../requests_json/tokens.json',encoding='UTF-8') as json_file:
-    body = json.load(json_file)s
+    body = json.load(json_file)
 body['auth']['identity']['password']['user']['name'] = userid
 body['auth']['identity']['password']['user']['password'] = userpw
 body['auth']['scope']['project']['name'] = userid
