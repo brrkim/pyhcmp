@@ -21,6 +21,7 @@ def getAuthToken(cloud,zone,headers):
         cloud.domain+zone+endpoint, headers=headers, data=json.dumps(body))
     if response.status_code != 201:
         raise Exception("Error: Authentication Fail")
+    
     return response.headers['X-Subject-Token']
 
 # G1/G2 Make Query Strings

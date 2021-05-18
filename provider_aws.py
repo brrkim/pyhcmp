@@ -24,11 +24,7 @@ class AWSZone(Zone):
 class AWSServer(Services,Provisioning):
     def __init__(self,cloudzone,servicename,endpoint):
         super().__init__(headers=cloudzone.headers,servicename=servicename,domain=cloudzone.cloud.domain,zone=cloudzone.zone,endpoint=endpoint,apikey=cloudzone.cloud.apikey,secret=cloudzone.cloud.secret)
-        self.client = boto3.client(
-            'ec2',
-            aws_access_key_id=self.apikey,
-            aws_secret_access_key=self.secret
-        )
+        self.client = boto3.client('ec2',aws_access_key_id=self.apikey,aws_secret_access_key=self.secret)
         
     def create(self):
         return super().create()

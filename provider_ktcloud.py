@@ -21,14 +21,14 @@ class KTCloud(Cloud):
         )
 
 class KTCZone(Zone):
-    def __init__(self,ktcloud,zone,cloudtype):
-        super().__init__(cloud=ktcloud,zone=zone,cloudtype='public')
+    def __init__(self,cloud,zone,cloudtype):
+        super().__init__(cloud=cloud,zone=zone,cloudtype='public')
         if zone in zones['D']:
             self.headers['X-Auth-Token'] = getAuthToken(self.cloud,self.zone,self.headers)
 
 class KTCServer(Services,Provisioning):
-    def __init__(self,ktcloudzone,servicename,endpoint):
-        super().__init__(headers=ktcloudzone.headers,servicename=servicename,domain=ktcloudzone.cloud.domain,zone=ktcloudzone.zone,endpoint=endpoint,apikey=ktcloudzone.cloud.apikey,secret=ktcloudzone.cloud.secret)
+    def __init__(self,cloudzone,servicename,endpoint):
+        super().__init__(headers=cloudzone.headers,servicename=servicename,domain=cloudzone.cloud.domain,zone=cloudzone.zone,endpoint=endpoint,apikey=cloudzone.cloud.apikey,secret=cloudzone.cloud.secret)
 
     def create(self):
         return super().create()

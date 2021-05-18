@@ -1,23 +1,36 @@
-# API
+# Concepts of Plugin Architecture
+```
+-------------
+|           |
+|           | 
+|   CORE    | ------------- [plugin 1]
+|           | |  Plug-in  | [plugin 2]
+|           | | Standards |    ...
+------------- ------------- [plugin n]
 
-- RESTFUL
-  - URL
-  - METHOD
-  - AUTHTOKEN
-- JSONRPC
-  - URL
-  - METHOD
+* CORE: 어떻게 동작하는지와 기본 비즈니스 로직을 정의. 워크플로우.
+* Plug-in modules: stand-alone. 독립적인 컴포넌트. 코어 기능 확장을 위한 커스텀 코드
+* 중복 최소화, 표준화된 방식으로 커뮤니케이션. 하나의 단일 구조를 가져야함
+* 모든 기능이 플러그인화 될 수는 없음. 공통 기능 검토 및 플러그인 대상인지 검토 필요
 
-
-
-# Concepts
+```
 
 - ${Provider}의 ${Service}를 ${Driver}로 ${Action}한다
-- ${Provider}의 ${Service}를 ${Action}한다
+- ${Provider+Zone}의 ${Service}를 ${Action}한다
+- ${Provider}의 ${Zone}의 ${Service}를 ${Action}한다
 
+# 연동방식
 
+- API
+  - REST
+  - RESTFUL
+  - SOAP
+  - JSONRPC
+  - gRPC
+- SDK
+- CDK
 
-# KT Cloud
+# 연동규격
 
 1. KT Cloud
    1. DX존 --> API|CDK|SDK 중에 상속
