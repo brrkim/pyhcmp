@@ -4,8 +4,6 @@ from locations import Zone
 from infraservices import Cloud
 from resources import Services
 import requests
-import json
-import os
 
 zones = {'D':['d1/'],'G':['v1/','v2/']}
 
@@ -28,7 +26,7 @@ class KTCZone(Zone):
 
 class KTCServer(Services,Provisioning):
     def __init__(self,cloudzone,servicename,endpoint):
-        super().__init__(headers=cloudzone.headers,servicename=servicename,domain=cloudzone.cloud.domain,zone=cloudzone.zone,endpoint=endpoint,apikey=cloudzone.cloud.apikey,secret=cloudzone.cloud.secret)
+        super().__init__(cloudname=cloudzone.cloud.cloudname,headers=cloudzone.headers,servicename=servicename,domain=cloudzone.cloud.domain,zone=cloudzone.zone,endpoint=endpoint,apikey=cloudzone.cloud.apikey,secret=cloudzone.cloud.secret)
 
     def create(self):
         return super().create()

@@ -16,19 +16,19 @@ def main():
 
     try:
         d1_zone = KTCZone(ktcloud,'d1/','public')
-        d1_server = KTCServer(d1_zone,'KTC D1 Servers','server/servers/')
+        d1_server = KTCServer(d1_zone,'Servers','server/servers/')
         
         g1_zone = KTCZone(ktcloud,'v1/','public')
-        g1_server = KTCServer(g1_zone,'KTC G1 Servers','server/')
+        g1_server = KTCServer(g1_zone,'Servers','server/')
 
         g2_zone = KTCZone(ktcloud,'v2/','public')
-        g2_server = KTCServer(g2_zone,'KTC G2 Servers','server/')
+        g2_server = KTCServer(g2_zone,'Servers','server/')
 
         seoul_zone = AWSZone(aws,credinfo_aws['region'],'public')
-        seoul_server = AWSServer(seoul_zone,'AWS SEOUL Instances',None)
+        seoul_server = AWSServer(seoul_zone,'Servers',None)
                 
         for server in [d1_server,g1_server,g2_server,seoul_server]:
-            print("##### "+server.servicename+" #####")
+            print("##### {0} {1} {2} ######".format(server.cloudname,server.zone,server.servicename))
             print(server.read())
             print()
         

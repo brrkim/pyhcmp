@@ -1,7 +1,8 @@
 
 
 class Services():
-    def __init__(self,headers,servicename,domain,zone,endpoint,apikey,secret):
+    def __init__(self,cloudname,headers,servicename,domain,zone,endpoint,apikey,secret):
+        self.cloudname = cloudname
         self.headers = headers
         self.servicename = servicename
         self.domain = domain
