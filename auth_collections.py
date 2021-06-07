@@ -25,12 +25,8 @@ def getAuthToken(cloud,zone,headers):
     return response.headers['X-Subject-Token']
 
 # G1/G2 Make Query Strings
-def getQueryStr(command,apikey,secret):
+def getQueryStr(secret,params):
     # request 문자열 생성
-    params=dict()
-    params['command']=command
-    params['response']="json"
-    params['apikey']=apikey
     secret=secret.encode('utf-8')
     querystr = '&'.join(['='.join([k,urllib.parse.quote_plus(params[k])]) for k in params.keys()])
     
