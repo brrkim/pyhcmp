@@ -21,8 +21,8 @@ class KTCloud(Cloud):
         )
 
 class KTCZone(Zone):
-    def __init__(self,cloud,zone,cloudtype):
-        super().__init__(cloud=cloud,zone=zone,cloudtype='public')
+    def __init__(self,cloud,zone,cloudtype='public'):
+        super().__init__(cloud=cloud,zone=zone,cloudtype=cloudtype)
         if zone in zones['D']:
             self.headers['X-Auth-Token'] = getAuthToken(self.cloud,self.zone,self.headers)
 
@@ -35,21 +35,24 @@ class KTCServer(Services,Provisioning):
         if self.zone in zones['D']:            
             kwargs['name'] = "pyhcmp-dx1-test"
             kwargs['key_name'] = "js-test"
-            kwargs['flavorRef'] = "2192ea6d-235a-4b06-b620-3d7a1fe92693"
-            kwargs['availability_zone'] = "DX-M1"
-            kwargs['networks.uuid'] = "acaa8f70-f1cd-41b3-a38a-852256ef6f1d"
-            kwargs['block_device_mapping_v2.destination_type'] = "volume"
-            kwargs['block_device_mapping_v2.boot_index'] = "0"
-            kwargs['block_device_mapping_v2.source_type'] = "image"
-            kwargs['block_device_mapping_v2.volume_size'] = 50
-            kwargs['block_device_mapping_v2.uuid'] = "fa8fdef3-fb2c-43fd-ad38-de858c39a53a"
+            # kwargs['availability_zone'] = "DX-M1"
+            kwargs['flavorRef'] = "f9764e6b-1b46-421d-8998-816c2d8d13ce"                    # 1x1.itl
+            kwargs['networks.uuid'] = "acaa8f70-f1cd-41b3-a38a-852256ef6f1d"                # DMZ
+            kwargs['block_device_mapping_v2.uuid'] = "fa8fdef3-fb2c-43fd-ad38-de858c39a53a" # CentOS 7.6
+            # kwargs['block_device_mapping_v2.destination_type'] = "volume"
+            # kwargs['block_device_mapping_v2.boot_index'] = "0"
+            # kwargs['block_device_mapping_v2.source_type'] = "image"
+            # kwargs['block_device_mapping_v2.volume_size'] = 50
             cwd = os.getcwd()
             with open(cwd+'/requests_json/servers.json',encoding='UTF-8') as json_file:
                 body = json.load(json_file)
             body['server']['name'] = kwargs['name']
             body['server']['key_name'] = kwargs['key_name']
+            body['server']['flavorRef'] = kwargs['flavorRef']
+            body['server']['networks'][0]['uuid'] = kwargs['networks.uuid']
+            body['server']['block_device_mapping_v2'][0]['uuid'] = kwargs['block_device_mapping_v2.uuid']
             url = self.domain+self.zone+self.endpoint
-            response = requests.post(url, headers=self.headers, data=json.dumps(body))
+            response = requests.post(url, headers=self.headers, data=json.dumps(body)).json()
             
         # G1/G2 Zone
         elif self.zone in zones['G']:
@@ -61,14 +64,14 @@ class KTCServer(Services,Provisioning):
             kwargs['name'] = "pyhcmp-g1-test"
             kwargs['displayname'] = "pyhcmp-g1-test"
             kwargs['apikey'] = self.apikey
-            url = self.domain+self.endpoint+self.zone+"client/api?"+getQueryStr(self.secret,kargs)
+            url = self.domain+self.endpoint+self.zone+"client/api?"+getQueryStr(self.secret,kwargs)
             response = requests.get(url).json()
         return response
 
     def read(self,**kwargs):
         # D1 Zone
         if self.zone in zones['D']:
-            url = self.domain+self.zone+self.endpoint
+            url = self.domain+self.zone+self.endpoint+"/detail"
             response = requests.get(url, headers=self.headers).json()
 
         # G1/G2 Zones

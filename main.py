@@ -16,7 +16,7 @@ def main():
 
     try:
         d1_zone = KTCZone(ktcloud,'d1/','public')
-        d1_server = KTCServer(d1_zone,'Servers','server/servers/detail')
+        d1_server = KTCServer(d1_zone,'Servers','server/servers')
         
         g1_zone = KTCZone(ktcloud,'v1/','public')
         g1_server = KTCServer(g1_zone,'Servers','server/')
@@ -27,13 +27,13 @@ def main():
         seoul_zone = AWSZone(aws,credinfo_aws['region'],'public')
         seoul_server = AWSServer(seoul_zone,'Servers',None)
                 
-        # for server in [d1_server,g1_server,g2_server,seoul_server]:
-        #     print("##### {0} {1} {2} ######".format(server.cloudname,server.zone,server.servicename))
-        #     print(server.read())
-        #     print()
-        
-        # g1_server.create()
-        print(d1_server.create())
+        for server in [d1_server,g1_server,g2_server,seoul_server]:
+            print("##### {0} {1} {2} ######".format(server.cloudname,server.zone,server.servicename))
+            print(server.read())
+            print()
+                
+        # print(g1_server.create())
+        # print(d1_server.create())
         
     except Exception as e:
         print(e)
