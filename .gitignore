@@ -1,3 +1,9 @@
-/requests_json/*.json
-/requests_json/credentials_aws.json
-/requests_json/credentials_ktcloud.json
+### VS Code ###
+.vscode/
+
+### Cache
+__pycache__/
+
+### Credentials
+requests_json/credentials_aws.json
+requests_json/credentials_ktcloud.json
