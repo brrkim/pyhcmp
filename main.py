@@ -10,10 +10,10 @@ def main():
     with open('credentials_json/credentials_aws.json',encoding='UTF-8') as credentials:
         credinfo_aws = json.load(credentials)
     aws = AWS(credinfo_aws)
-
+    
     try:
-        d1_zone = KTCZone(ktcloud,'d1/','public')
-        d1_server = KTCServer(d1_zone,'Servers','server/servers')
+        # d1_zone = KTCZone(ktcloud,'d1/','public')
+        # d1_server = KTCServer(d1_zone,'Servers','server/servers')
         
         g1_zone = KTCZone(ktcloud,'v1/','public')
         g1_server = KTCServer(g1_zone,'Servers','server/')
@@ -39,12 +39,12 @@ def main():
         #     networks_uuid="acaa8f70-f1cd-41b3-a38a-852256ef6f1d",
         #     block_device_uuid="fa8fdef3-fb2c-43fd-ad38-de858c39a53a"))
         
-        seoul_server.create()
+        print(seoul_server.create())
         
-        for server in [d1_server,g1_server,g2_server,seoul_server]:
-            print("##### {0} {1} {2} ######".format(server.cloudname,server.zone,server.servicename))
-            print(server.read())
-            print()
+        # for server in [d1_server,g1_server,g2_server,seoul_server]:
+        #     print("##### {0} {1} {2} ######".format(server.cloudname,server.zone,server.servicename))
+        #     print(server.read())
+        #     print()
         
     except Exception as e:
         print(e)
