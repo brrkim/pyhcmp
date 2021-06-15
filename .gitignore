@@ -1,9 +1,12 @@
 ### VS Code ###
 .vscode/
 
-### Cache
+### Cache ###
 __pycache__/
 
-### Credentials
-requests_json/credentials_aws.json
-requests_json/credentials_ktcloud.json
+### Credentials ###
+credentials_json/credentials_aws.json
+credentials_json/credentials_ktcloud.json
+
+### venv ###
+pyhcmp_venv

@@ -1,16 +1,13 @@
-import os
 import json
 from provider_ktcloud import KTCloud,KTCZone,KTCServer
 from provider_aws import AWS,AWSZone,AWSServer
 
-def main():
-    cwd = os.getcwd()
-    
-    with open(cwd+'/requests_json/credentials_ktcloud.json',encoding='UTF-8') as credentials:
+def main():    
+    with open('credentials_json/credentials_ktcloud.json',encoding='UTF-8') as credentials:
         credinfo_kt = json.load(credentials)
     ktcloud = KTCloud(credinfo_kt)
 
-    with open(cwd+'/requests_json/credentials_aws.json',encoding='UTF-8') as credentials:
+    with open('credentials_json/credentials_aws.json',encoding='UTF-8') as credentials:
         credinfo_aws = json.load(credentials)
     aws = AWS(credinfo_aws)
 
