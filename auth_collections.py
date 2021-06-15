@@ -26,16 +26,15 @@ def getAuthToken(cloud,zone,headers):
 
 # G1/G2 Make Query Strings
 def getQueryStr(secret,params):
-    # request 문자열 생성
-    secret=secret.encode('utf-8')
-    querystr = '&'.join(['='.join([k,urllib.parse.quote_plus(params[k])]) for k in params.keys()])
+    # Query Strings 생성
+    secret = secret.encode('utf-8')
+    querystr = '&'.join(['='.join([k,urllib.parse.quote_plus(params[k]).replace('+','%20')]) for k in sorted(params.keys(), key=str.lower)])
     
-    # signature 생성
-    message = '&'.join(['='.join([k.lower(),urllib.parse.quote_plus(params[k]).replace('+','%20').lower()]) for k in sorted(params.keys())])
-    message = message.encode('utf-8')
-    digest = hmac.new(secret, msg=message, digestmod=hashlib.sha1).digest()
-    signature = base64.b64encode(digest)
-    signature = urllib.parse.quote_plus(signature)
+    # Signature 생성
+    digest = hmac.new(secret, msg=querystr.encode('utf-8').lower(), digestmod=hashlib.sha1).digest()
+    signature = urllib.parse.quote_plus(base64.b64encode(digest))
+    
+    # Final
     querystr += '&signature='+signature
     
     return querystr
