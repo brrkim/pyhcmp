@@ -10,9 +10,9 @@ class Item(BaseModel):
 app = FastAPI()
 
 @app.get("/")
-async def root():
+async def home():
 	return { "message" : "Hello World" }
 
-@app.post("/items")
+@app.post("/items/")
 async def create_item(item: Item):
 	return item

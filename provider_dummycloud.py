@@ -23,19 +23,17 @@ class CloudZone(Zone):
 
 class Server(Services,Provisioning):
     def __init__(self,cloudzone,servicename,endpoint):
-        super().__init__(headers=cloudzone.headers,servicename=servicename,domain=cloudzone.cloud.domain,zone=cloudzone.zone,endpoint=endpoint,apikey=cloudzone.cloud.apikey,secret=cloudzone.cloud.secret)
-
-    def create(self):
-        return super().create()
-
-    def read(self):
-        url = self.domain+self.zone+self.endpoint
-        response = requests.get(url, headers=self.headers).json()
-        return response
+        super().__init__(cloudname=cloudzone.cloud.cloudname,headers=cloudzone.headers,servicename=servicename,domain=cloudzone.cloud.domain,zone=cloudzone.zone,endpoint=endpoint,apikey=cloudzone.cloud.apikey,secret=cloudzone.cloud.secret)
+        
+    def create(self, **kwargs):
+        return super().create(**kwargs)
     
-    def update(self):
-        return super().update()
-
-    def delete(self):
-        return super().delete()
+    def read(self, **kwargs):
+        return super().read(**kwargs)
+    
+    def update(self, **kwargs):
+        return super().update(**kwargs)
+    
+    def delete(self, **kwargs):
+        return super().delete(**kwargs)
         

@@ -1,4 +1,4 @@
-from interface_actions import Provisioning
+from interface_actions import Provisioning,Management
 from auth_collections import getAuthToken,getQueryStr
 from locations import Zone
 from infraservices import Cloud
@@ -26,7 +26,7 @@ class KTCZone(Zone):
         if zone in zones['D']:
             self.headers['X-Auth-Token'] = getAuthToken(self.cloud,self.zone,self.headers)
 
-class KTCServer(Services,Provisioning):
+class KTCServer(Services,Provisioning,Management):
     def __init__(self,cloudzone,servicename,endpoint):
         super().__init__(cloudname=cloudzone.cloud.cloudname,headers=cloudzone.headers,servicename=servicename,domain=cloudzone.cloud.domain,zone=cloudzone.zone,endpoint=endpoint,apikey=cloudzone.cloud.apikey,secret=cloudzone.cloud.secret)
 
@@ -69,8 +69,43 @@ class KTCServer(Services,Provisioning):
             response = requests.get(url).json()
         return response
 
-    def update(self):
+    def update(self,**kwargs):
         return super().update()
 
-    def delete(self):
-        return super().delete()
+    def delete(self,**kwargs):
+        # D1 Zone
+        if self.zone in zones['D']:
+            # url = self.domain+self.zone+self.endpoint+"/detail"
+            # response = requests.get(url, headers=self.headers).json()
+            pass
+
+        # G1/G2 Zones
+        elif self.zone in zones['G']:
+            kwargs['command'] = "destroyVirtualMachine"
+            kwargs['response'] = "json"
+            kwargs['apikey'] = self.apikey
+            url = self.domain+self.endpoint+self.zone+"client/api?"+getQueryStr(self.secret,kwargs)
+            response = requests.get(url).json()
+        return response
+    
+    def start(self, **kwargs):
+        return super().start(**kwargs)
+    
+    def stop(self, **kwargs):
+        # D1 Zone
+        if self.zone in zones['D']:
+            # url = self.domain+self.zone+self.endpoint+"/detail"
+            # response = requests.get(url, headers=self.headers).json()
+            pass
+
+        # G1/G2 Zones
+        elif self.zone in zones['G']:
+            kwargs['command'] = "stopVirtualMachine"
+            kwargs['response'] = "json"
+            kwargs['apikey'] = self.apikey
+            url = self.domain+self.endpoint+self.zone+"client/api?"+getQueryStr(self.secret,kwargs)
+            response = requests.get(url).json()
+        return response
+    
+    def restart(self, **kwargs):
+        return super().restart(**kwargs)
