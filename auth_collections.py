@@ -9,7 +9,7 @@ import json
 # D1 Get Auth Token
 # AuthToken is available only for 1hr
 def getAuthToken(cloud,zone,headers):
-    endpoint = "identity/auth/tokens"
+    endpoint = "/identity/auth/tokens"
     with open('requests_json/tokens.json',encoding='UTF-8') as json_file:
         body = json.load(json_file)
     body['auth']['identity']['password']['user']['name'] = cloud.userid

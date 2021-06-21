@@ -7,7 +7,7 @@ import requests
 import os
 import json
 
-zones = {'D':['d1/'],'G':['v1/','v2/']}
+zones = {'D':['/d1'],'G':['/v1','/v2']}
 
 class KTCloud(Cloud):
     def __init__(self,credinfo,cloudname='KT Cloud'):
@@ -65,7 +65,7 @@ class KTCServer(Services,Provisioning,Management):
             kwargs['command'] = "listVirtualMachines"
             kwargs['response'] = "json"
             kwargs['apikey'] = self.apikey
-            url = self.domain+self.endpoint+self.zone+"client/api?"+getQueryStr(self.secret,kwargs)
+            url = self.domain+self.endpoint+self.zone+"/client/api?"+getQueryStr(self.secret,kwargs)
             response = requests.get(url).json()
         return response
 

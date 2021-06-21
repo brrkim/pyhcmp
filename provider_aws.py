@@ -1,4 +1,4 @@
-from interface_actions import Provisioning
+from interface_actions import Provisioning,Management
 from auth_collections import getAuthToken,getQueryStr
 from locations import Zone
 from infraservices import Cloud
@@ -19,7 +19,7 @@ class AWSZone(Zone):
     def __init__(self,cloud,zone,cloudtype):
         super().__init__(cloud=cloud,zone=zone,cloudtype='public')
 
-class AWSServer(Services,Provisioning):
+class AWSServer(Services,Provisioning,Management):
     def __init__(self,cloudzone,servicename,endpoint):
         super().__init__(cloudname=cloudzone.cloud.cloudname,headers=cloudzone.headers,servicename=servicename,domain=cloudzone.cloud.domain,zone=cloudzone.zone,endpoint=endpoint,apikey=cloudzone.cloud.apikey,secret=cloudzone.cloud.secret)
         self.client = boto3.client('ec2',aws_access_key_id=self.apikey,aws_secret_access_key=self.secret,region_name=self.zone)
@@ -60,4 +60,13 @@ class AWSServer(Services,Provisioning):
             DryRun=True
         )
         return response
+    
+    def start(self, **kwargs):
+        return super().start(**kwargs)
+    
+    def stop(self, **kwargs):
+        return super().stop(**kwargs)
+    
+    def restart(self, **kwargs):
+        return super().restart(**kwargs)
         

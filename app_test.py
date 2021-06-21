@@ -15,6 +15,6 @@ def test_create_item():
         "price": 2000,
         "tax": 2000
     }
-    response = client.post('/items/',json=body)
+    response = client.post('/items',json=body)
     assert response.status_code == 200
     assert response.json() == body
