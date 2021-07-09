@@ -2,7 +2,6 @@ import hashlib
 import hmac
 import base64
 import urllib
-import os
 import requests
 import json
 

@@ -5,8 +5,7 @@
 __pycache__/
 
 ### Credentials ###
-credentials_json/credentials_aws.json
-credentials_json/credentials_ktcloud.json
+jsons/credentials/*
 
 ### venv ###
 pyhcmp_venv
