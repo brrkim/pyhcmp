@@ -15,11 +15,11 @@ class Item(BaseModel):
     instance_status: str
 
 def build_provider_resource():
-    with open('credentials_json/credentials_ktcloud.json',encoding='UTF-8') as credentials:
+    with open('jsons/credentials/kt.json',encoding='UTF-8') as credentials:
         credinfo_kt = json.load(credentials)
     ktcloud = KTCloud(credinfo_kt)
 
-    with open('credentials_json/credentials_aws.json',encoding='UTF-8') as credentials:
+    with open('jsons/credentials/aws.json',encoding='UTF-8') as credentials:
         credinfo_aws = json.load(credentials)
     aws = AWS(credinfo_aws)
     

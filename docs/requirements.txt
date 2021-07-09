@@ -1,0 +1,6 @@
+boto3==1.17.108
+fastapi==0.66.0
+requests==2.25.1
+uvicorn==0.14.0
+ptw==1.0.1
+pytest==6.2.4
