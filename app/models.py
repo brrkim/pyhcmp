@@ -3,6 +3,7 @@ from datetime import datetime
 from bson import ObjectId
 from typing import Optional
 
+
 class PyObjectId(ObjectId):
     
     @classmethod
@@ -49,7 +50,7 @@ class Provider(BaseModel):
         }
     
 class Server(BaseModel):
-    id: Optional[PyObjectId] = Field(alias='_id')
+    id: PyObjectId = Field(default_factory=PyObjectId, alias='_id')
     tenant_id: str
     instance_name: str = None
     instance_id: str

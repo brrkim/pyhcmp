@@ -1,7 +1,10 @@
 from app.internal.provider.ktcloud.provider_ktcloud import KTCloud,KTCZone,KTCServer
 from app.internal.provider.aws.provider_aws import AWS,AWSZone,AWSServer
-from app.models import Provider,Server
+from app.models import Provider, Server
 import json
+from bson.objectid import ObjectId
+
+from random_object_id import generate
 
 def build_provider_resource(provider):
     
@@ -59,7 +62,7 @@ def parse_data(server,response):
                     instance_az=inst["zonename"],
                     instance_flavor_id=inst["templatename"],
                     instance_status=inst["state"])
-                items.append(item)
+                # items.append(item)
     elif server.cloudname in clouds["AWS"]:
         for reserv in response["Reservations"]:
             for inst in reserv["Instances"]:
@@ -70,5 +73,5 @@ def parse_data(server,response):
                     instance_flavor_id=inst["InstanceType"],
                     instance_key_name=inst["KeyName"],
                     instance_status=inst["State"]["Name"])
-                items.append(item)
+                # items.append(item)
     return items

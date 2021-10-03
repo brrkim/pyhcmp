@@ -10,3 +10,6 @@ jsons/credentials/*
 ### venv ###
 pyhcmp_venv
 pyhcmp_env
+
+### Config
+app/common/config.py
