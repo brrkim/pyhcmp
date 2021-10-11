@@ -5,7 +5,7 @@ from fastapi import FastAPI
 
 from app.database.conn import mongo
 from app.common.config import conf
-from app.routes import index, provider, user, inventory
+from app.routes import index, provider, inventory
 
 def create_app():
     c = conf()
@@ -14,7 +14,7 @@ def create_app():
     mongo.init_app(app, **conf_dict)
     app.include_router(index.router)
     app.include_router(provider.router)
-    app.include_router(user.router)
+    # app.include_router(user.router)
     app.include_router(inventory.router)
     return app
 

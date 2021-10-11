@@ -4,9 +4,7 @@ from app.models import Provider, Server
 import json
 from bson.objectid import ObjectId
 
-from random_object_id import generate
-
-def build_provider_resource(provider):
+def build_provider_resources(provider):
     
     ret = []
     
